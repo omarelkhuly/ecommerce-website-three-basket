@@ -1,3 +1,4 @@
+// CartContext code
 import { createContext, useContext, useState } from "react"
 import { useAuth } from "./AuthContext"
 

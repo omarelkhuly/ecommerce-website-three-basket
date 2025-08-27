@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 
 export default function Header() {
-  const { user, login, logout } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
     <AppBar position="static">
@@ -27,12 +27,15 @@ export default function Header() {
           {user ? (
             <>
               <Typography variant="body1" className="mt-1">
-                مرحباً {user.username}
+                مرحباً {user.email}
               </Typography>
               <Button color="inherit" onClick={logout}>Logout</Button>
             </>
           ) : (
-            <Button color="inherit" onClick={() => login("Ahmed")}>Login</Button>
+            <>
+              <Button color="inherit" component={Link} to="/login">Login</Button>
+              <Button color="inherit" component={Link} to="/register">Register</Button>
+            </>
           )}
         </div>
       </Toolbar>

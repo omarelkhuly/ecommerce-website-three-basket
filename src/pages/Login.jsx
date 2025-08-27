@@ -1,16 +1,24 @@
+// Login code
 import { useState } from "react"
-import { supabase } from "../api"
 import { TextField, Button, Typography } from "@mui/material"
+import { useAuth } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) setError(error.message)
-    else alert("Login successful ✅")
+    try {
+      await login(email, password)
+      alert("Login successful ✅")
+      navigate("/") // ✅ بعد تسجيل الدخول يرجع للصفحة الرئيسية
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   return (
